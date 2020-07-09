@@ -1,0 +1,8 @@
+applicationType: default
+defaultPackage: example
+testFramework: spock
+sourceLanguage: java
+buildTool: maven
+features: [annotation-api, app-name, docker, file-watch, graalvm,
+           http-client, java, java-application, logback, maven,
+           netty-server, readme, shade, spock, yaml]

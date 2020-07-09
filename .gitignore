@@ -1,0 +1,22 @@
+
+# IntelliJ
+.idea
+**/*.iml
+**/*.ipr
+**/*.iws
+
+# VS Code
+/.vscode/
+
+# Intermediate and output files
+target/
+build/
+out/
+
+# Misc files
+**/*.log
+**/scratchpad.txt
+**/scrapyard
+
+# MacOS
+.DS_Store

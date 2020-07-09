@@ -1,0 +1,6 @@
+micronaut:
+  application:
+    name: micronaut_gvm
+  server:
+    netty:
+      log-level: info
