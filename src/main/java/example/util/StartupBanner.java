@@ -1,55 +1,54 @@
 package example.util;
 
-import io.micronaut.context.ApplicationContext;
-import io.micronaut.context.event.ApplicationEventListener;
 import io.micronaut.context.event.BeanCreatedEvent;
 import io.micronaut.context.event.BeanCreatedEventListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.micronaut.core.io.ResourceResolver;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
+/**
+ * A simple startup banner a-la SpringBoot, not available in Micronaut (yet?) for some reason
+ *
+ * TODO: add configuration option(s) like in SpringBoot (i.e. micronaut.application.banner in application.yml)
+ */
 @Singleton
-public class StartupBanner implements
-        BeanCreatedEventListener<ApplicationEventListener> {
+public class StartupBanner implements BeanCreatedEventListener<ResourceResolver> {
 
-    private static final Logger log = LoggerFactory.getLogger(StartupBanner.class);
-
-    @Inject
-    private ApplicationContext appContext;
-
-    @PostConstruct
-    private void init() {
-
-//        appContext.getAllBeanDefinitions()
-//                .stream()
-//                .filter(def -> def.getName().contains("io.micronaut"))
-//                .forEach(def -> {
-//                            log.info("Bean: {} -> {}", def.getName(), def.getBeanType());
-//                        });
-
-        // ????
-        // ResourceResolver <- works well, early init
-        // ClassPathResourceLoader
-        // DefaultApplicationContext <- X
-        // ApplicationEventListener <- too late, multiple events!
-        // LogbackLoggingSystem <- too late!
-        // ApplicationConfiguration <- too late!
-    }
-
+    /**
+     * The ResourceResolver is one of the earliest beans to be constructed, so this bean
+     * listens for the corresponding BeanCreatedEvent to kindaaaaaa prioritize itself higher
+     * that other beans - prolly a bit unreliable, but what the hell, you know? Better than
+     * nuthin'.....
+     *
+     * Abe's gangsta-style BANNAR!!!!!
+     *
+     * вєωαяє, ι αм ƒαη¢у!
+     */
     @Override
-    public ApplicationEventListener onCreated(BeanCreatedEvent<ApplicationEventListener> event) {
-        log.info("App context created!");
-        return event.getBean();
-    }
+    public ResourceResolver onCreated(BeanCreatedEvent<ResourceResolver> event) {
 
-    // this one NEVER gets called for some reason -> Bug in Micronaut ?!
-//    @Override
-//    public ResourceLoader onInitialized(BeanInitializingEvent<ResourceLoader> event) {
-//
-//        log.info("App context initialized!");
-//        return event.getBean();
-//    }
+        var resolver = event.getBean();
+        var bannerData = resolver.getResourceAsStream("classpath:banner.txt");
+        if(bannerData.isPresent()) {
+
+            try {
+                var inputStream = bannerData.get();
+                var outStream = new ByteArrayOutputStream();
+
+                inputStream.transferTo(outStream);
+
+                var bannerText = new StringBuilder();
+                bannerText.append(outStream);
+                bannerText.append("\n");
+
+                System.out.print(bannerText.toString());
+            } catch(IOException ex) {
+                // can't read banner - swallow this silently as not to pollute the application
+                // startup log
+            }
+        }
+        return resolver;
+    }
 }
