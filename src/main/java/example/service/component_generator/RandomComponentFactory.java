@@ -39,7 +39,7 @@ public class RandomComponentFactory {
     public void init() {
         builderRegistry = new HashMap<>();
         componentClasses = new ArrayList<>();
-        for (ComponentBuilder<?> builder : appContext.getBeansOfType(ComponentBuilder.class)) {
+        for (var builder : appContext.getBeansOfType(ComponentBuilder.class)) {
 
             componentClasses.add(builder.getComponentClass());
             builderRegistry.put(builder.getComponentClass(), builder);
@@ -53,9 +53,9 @@ public class RandomComponentFactory {
     }
 
     public ElectronicComponent makeComponent() {
-        Class<?> componentClass = RandomValueUtils.pickRandomValue(componentClasses);
-        ComponentBuilder<?> builder = builderRegistry.get(componentClass);
-        ElectronicComponent component = builder.buildComponent();
+        var componentClass = RandomValueUtils.pickRandomValue(componentClasses);
+        var builder = builderRegistry.get(componentClass);
+        var component = builder.buildComponent();
         return component;
     }
 }

@@ -32,7 +32,7 @@ public class DiodeBuilder implements ComponentBuilder<Diode> {
 
     @Override
     public Diode buildComponent() {
-        Diode diode = new Diode();
+        var diode = new Diode();
         basicValueFiller.fill(diode);
         diode.setVf(RandomUtils.nextFloat(MIN_VF, MAX_VF));
         diode.setVrevMax(RandomUtils.nextInt(MIN_VREV_MAX, MAX_VREV_MAX + 1));

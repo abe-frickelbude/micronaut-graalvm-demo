@@ -36,7 +36,7 @@ public class BipolarTransistorBuilder implements ComponentBuilder<BipolarTransis
     @Override
     public BipolarTransistor buildComponent() {
 
-        BipolarTransistor bjt = new BipolarTransistor();
+        var bjt = new BipolarTransistor();
         basicValueFiller.fill(bjt);
         bjt.setPolarity(RandomValueUtils.pickRandomValue(BipolarTransistor.Polarity.values()));
         bjt.sethFE(RandomUtils.nextInt(MIN_HFE, MAX_HFE + 1));

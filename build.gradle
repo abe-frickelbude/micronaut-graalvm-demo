@@ -37,7 +37,14 @@ dependencies {
     implementation("javax.annotation:javax.annotation-api")
     implementation("io.micronaut:micronaut-http-server-netty")
     implementation("io.micronaut:micronaut-http-client")
-    implementation("io.micronaut.data:micronaut-data-model")
+
+    implementation("io.micronaut.data:micronaut-data-model") {
+        /* This is done to avoid eager initialization (and crashing) of some TX-related
+         * stuff that in turn relies on the presence of a JDBC datasource
+         * which we don't have in this application
+         */
+        exclude group: "io.micronaut.data", module: "micronaut-data-tx"
+    }
 
     implementation("org.apache.commons:commons-lang3:3.10")
 

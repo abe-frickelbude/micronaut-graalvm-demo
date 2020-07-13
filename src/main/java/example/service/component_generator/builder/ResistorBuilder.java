@@ -28,7 +28,7 @@ public class ResistorBuilder implements ComponentBuilder<Resistor> {
 
     @Override
     public Resistor buildComponent() {
-        Resistor resistor = new Resistor();
+        var resistor = new Resistor();
         basicValueFiller.fill(resistor);
         resistor.setTolerance(BuilderUtils.pickRandomTolerance());
         resistor.setValue(RandomUtils.nextFloat(MIN_VALUE, MAX_VALUE));

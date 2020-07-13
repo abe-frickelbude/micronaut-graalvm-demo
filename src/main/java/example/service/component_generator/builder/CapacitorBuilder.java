@@ -28,7 +28,7 @@ public class CapacitorBuilder implements ComponentBuilder<Capacitor> {
 
     @Override
     public Capacitor buildComponent() {
-        Capacitor capacitor = new Capacitor();
+        var capacitor = new Capacitor();
         basicValueFiller.fill(capacitor);
         capacitor.setTolerance(BuilderUtils.pickRandomTolerance());
         capacitor.setValue(RandomUtils.nextFloat(MIN_VALUE, MAX_VALUE));

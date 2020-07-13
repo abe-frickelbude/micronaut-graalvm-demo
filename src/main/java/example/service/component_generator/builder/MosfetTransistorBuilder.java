@@ -31,7 +31,7 @@ public class MosfetTransistorBuilder implements ComponentBuilder<MosfetTransisto
 
     @Override
     public MosfetTransistor buildComponent() {
-        MosfetTransistor transistor = new MosfetTransistor();
+        var transistor = new MosfetTransistor();
         basicValueFiller.fill(transistor);
         transistor.setPolarity(RandomValueUtils.pickRandomValue(MosfetTransistor.Polarity.values()));
         transistor.setIdsMax(RandomUtils.nextFloat(MIN_IDS_MAX, MAX_IDS_MAX));

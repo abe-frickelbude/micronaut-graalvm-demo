@@ -28,7 +28,7 @@ public class InductorBuilder implements ComponentBuilder<Inductor> {
 
     @Override
     public Inductor buildComponent() {
-        Inductor inductor = new Inductor();
+        var inductor = new Inductor();
         basicValueFiller.fill(inductor);
         inductor.setTolerance(BuilderUtils.pickRandomTolerance());
         inductor.setValue(RandomUtils.nextFloat(MIN_VALUE, MAX_VALUE));
