@@ -1,4 +1,4 @@
-package example
+package example.service_tests
 
 import io.micronaut.runtime.EmbeddedApplication
 import io.micronaut.test.annotation.MicronautTest
@@ -11,7 +11,7 @@ class Micronaut_gvmSpec extends Specification {
     @Inject
     EmbeddedApplication application
 
-    void 'test it works'() {
+    void 'test app init ok'() {
         expect:
         application.running
     }

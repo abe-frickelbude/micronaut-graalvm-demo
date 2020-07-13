@@ -9,9 +9,11 @@
 /.vscode/
 
 # Intermediate and output files
-target/
-build/
-out/
+.gradle
+gradle
+target
+build
+out
 
 # Misc files
 **/*.log

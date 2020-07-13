@@ -1,6 +1,8 @@
 micronaut:
   application:
     name: micronaut_gvm
-  server:
-    netty:
-      log-level: info
+#  server:
+#    netty:
+#      log-level: warn
+component-catalog:
+  num-random-items: 1000

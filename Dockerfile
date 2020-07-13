@@ -1,13 +1,4 @@
-FROM oracle/graalvm-ce:20.1.0-java11 as graalvm
-RUN gu install native-image
-
-COPY . /home/app/micronaut_gvm
-WORKDIR /home/app/micronaut_gvm
-
-RUN native-image --no-server -cp target/micronaut_gvm-*.jar
-
-FROM frolvlad/alpine-glibc
-RUN apk update && apk add libstdc++
+FROM openjdk:14-alpine
+COPY build/libs/example-*-all.jar example.jar
 EXPOSE 8080
-COPY --from=graalvm /home/app/micronaut_gvm/micronaut_gvm /app/micronaut_gvm
-ENTRYPOINT ["/app/micronaut_gvm"]
+CMD ["java", "-Dcom.sun.management.jmxremote", "-Xmx128m", "-jar", "example.jar"]
