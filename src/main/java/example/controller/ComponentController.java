@@ -12,6 +12,12 @@ import javax.validation.Valid;
 
 /**
  * "@Controller" flags a controller for route registration in Micronaut's embedded HTTP server
+ *
+ * <p>
+ * - @Validated (and also @Valid on method parameters) enable validation on request
+ * parameters, request bodies etc. In case of validation errors Micronaut will by default automatically
+ * produce an HTTP 400 response with a JSON body describing the fault(s)
+ * </p>
  */
 //@Api(
 //        tags = {"Component catalog Rest API"}

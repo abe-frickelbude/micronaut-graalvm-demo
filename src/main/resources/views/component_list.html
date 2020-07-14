@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Spring MVC demo - component list</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <style type="text/css">
+        body {
+            padding: 20px;
+        }
+
+        td {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+    </style>
+</head>
+
+<body>
+<h1>Component catalog</h1>
+<div>
+    <table class="table table-sm table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <!-- The properties defined in messages.properties can be used here directly -->
+            <th th:text="#{list.header.id}"></th>
+            <th th:text="#{list.header.type}"></th>
+            <th th:text="#{list.header.manufacturer}"></th>
+            <th th:text="#{list.header.description}"></th>
+            <th th:text="#{list.header.creation_date}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="component : ${componentPage.content}">
+            <td th:text="${component.id}"></td>
+            <td th:text="${component.type}"></td>
+            <td th:text="${component.manufacturer}"></td>
+            <td ><a th:text="${component.description}" th:href="@{/catalog/detail/{id}(id=${component.id})}"></a></td>
+            <td th:text="${component.createdAt}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <nav aria-label="navigation">
+        <ul class="pagination justify-content-center">
+            <li th:each="pageNumber:${pageNumbers}" th:class="${pageNumber == componentPage.number + 1} ? 'active' + ' page-item'">
+                <a class="page-link" th:text="${pageNumber}" th:href="@{/catalog/list(page=${pageNumber}, size=${componentPage.size})}"></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

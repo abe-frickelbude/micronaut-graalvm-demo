@@ -1,8 +1,40 @@
 micronaut:
+
   application:
     name: micronaut_gvm
-#  server:
-#    netty:
-#      log-level: warn
+
+  server:
+    log-handled-exceptions: true
+    # netty:
+    #  log-level: warn
+
+  views:
+    thymeleaf:
+      cacheable: true
+      check-existence: true
+      template-mode: html
+
+  router:
+    static-resources:
+      webjars:
+        enabled: true
+        paths: classpath:META-INF/resources/webjars
+        mapping: /webjars/**
+
+# alternatively this can be configured in code using a @Factory/@Replaces to override
+# the default Jackson object mapper with a custom-configured one
+jackson:
+  serialization-inclusion: non_null
+  serialization:
+      indent-output: true # pretty-print output
+
+# Custom configuration
 component-catalog:
   num-random-items: 1000
+
+# for local development, allow access to all management endpoints
+# Weird but true: this is not grouped under the "micronaut" properties!
+endpoints:
+  all:
+    enabled: true
+    sensitive: false
