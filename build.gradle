@@ -53,7 +53,6 @@ dependencies {
     implementation("io.micronaut.views:micronaut-views-thymeleaf")
     //implementation("io.micronaut.security:micronaut-security-jwt")
     implementation("org.webjars:bootstrap:4.5.0")
-    implementation("org.webjars:webjars-locator:0.40")
 
     implementation("javax.annotation:javax.annotation-api")
     implementation("org.apache.commons:commons-lang3:3.10")

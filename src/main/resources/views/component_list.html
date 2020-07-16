@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Spring MVC demo - component list</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <title>Micronaut demo - component list</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
     <style type="text/css">
         body {
             padding: 20px;
@@ -43,8 +43,8 @@
     </table>
     <nav aria-label="navigation">
         <ul class="pagination justify-content-center">
-            <li th:each="pageNumber:${pageNumbers}" th:class="${pageNumber == componentPage.number + 1} ? 'active' + ' page-item'">
-                <a class="page-link" th:text="${pageNumber}" th:href="@{/catalog/list(page=${pageNumber}, size=${componentPage.size})}"></a>
+            <li th:each="pageNumber:${pageNumbers}" th:class="${pageNumber == componentPage.getPageNumber() + 1} ? 'active' + ' page-item'">
+                <a class="page-link" th:text="${pageNumber}" th:href="@{/catalog/list(page=${pageNumber}, size=${componentPage.getSize()})}"></a>
             </li>
         </ul>
     </nav>
