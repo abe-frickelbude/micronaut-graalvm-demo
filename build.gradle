@@ -29,6 +29,7 @@ dependencies {
     annotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     annotationProcessor("io.micronaut:micronaut-inject-java")
     annotationProcessor("io.micronaut:micronaut-validation")
+    annotationProcessor("io.micronaut:micronaut-graal")
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
 
     // ------------------------ compile dependencies -------------------------------
@@ -57,6 +58,7 @@ dependencies {
     implementation("javax.annotation:javax.annotation-api")
     implementation("org.apache.commons:commons-lang3:3.10")
 
+    compileOnly("org.graalvm.nativeimage:svm")
     runtimeOnly("ch.qos.logback:logback-classic")
 
     // -------------------------Test dependencies ------------------------------
