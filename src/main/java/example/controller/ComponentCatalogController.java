@@ -10,6 +10,7 @@ import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Error;
 import io.micronaut.http.annotation.*;
 import io.micronaut.views.View;
+import io.micronaut.views.exceptions.ViewRenderingException;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -60,6 +61,12 @@ public class ComponentCatalogController {
             return HttpResponse.notFound();
             //return "404";
         }
+    }
+
+    //// -------------- DOESN'T WORK! -----------------------
+    @Error(ViewRenderingException.class)
+    public HttpResponse onViewError() {
+        return HttpResponse.serverError();
     }
 
     /**

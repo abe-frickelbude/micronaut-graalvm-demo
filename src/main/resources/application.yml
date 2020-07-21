@@ -7,6 +7,14 @@ micronaut:
     log-handled-exceptions: true
     # netty:
     #  log-level: warn
+    netty:
+      worker:
+        event-loop-group: "netty"
+
+  executors:
+    io:
+      type: fixed
+      n-threads: 10
 
   views:
     thymeleaf:
