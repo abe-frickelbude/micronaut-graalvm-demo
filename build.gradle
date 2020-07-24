@@ -4,12 +4,13 @@ plugins {
     id("groovy")
 
     id("com.diffplug.eclipse.apt") version "3.22.0"
+    id("io.freefair.aspectj.post-compile-weaving") version "5.1.0"
     id("com.github.johnrengelman.shadow") version "6.0.0"
     id("application")
 }
 
-version "1.0"
-group "example"
+version("1.0")
+group("example")
 
 // additional properties
 ext {
@@ -86,6 +87,20 @@ java {
     targetCompatibility = JavaVersion.toVersion('11')
 }
 
+aspectj {
+    version = "1.9.5"
+    dependencies {
+        inpath("io.micronaut.views:micronaut-views-thymeleaf:2.0.0") {
+
+            // don't attempt to weave into core Thymeleaf library as this produces
+            // compilation errors and is also not necessary
+            exclude group: "org.thymeleaf", module: "thymeleaf"
+        }
+
+        //testInpath("io.micronaut.views:micronaut-views-thymeleaf:2.0.0")
+    }
+}
+
 test.classpath += configurations.developmentOnly
 
 /* use JUnit [5] platform - test are actually run by Spock but
@@ -110,6 +125,11 @@ tasks.withType(JavaCompile) {
             "-Amicronaut.processing.group=$project.group",
             "-Amicronaut.processing.module=$project.name",
     ])
+
+    // AspectJ compiler configuration
+    ajc {
+        options.compilerArgs.addAll(['-showWeaveInfo'])
+    }
 }
 
 tasks.withType(JavaExec) {
@@ -123,8 +143,5 @@ tasks.withType(JavaExec) {
         )
     }
 }
-
-
-
 
 
