@@ -10,7 +10,8 @@ import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Error;
 import io.micronaut.http.annotation.*;
 import io.micronaut.views.View;
-import io.micronaut.views.exceptions.ViewRenderingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.HashMap;
@@ -24,6 +25,8 @@ import java.util.stream.IntStream;
 //)
 @Controller("/catalog")
 public class ComponentCatalogController {
+
+    private static final Logger log = LoggerFactory.getLogger(ComponentCatalogController.class);
 
     private final ElectronicComponentRepository componentRepository;
     private final ObjectMapper objectMapper;
@@ -61,12 +64,6 @@ public class ComponentCatalogController {
             return HttpResponse.notFound();
             //return "404";
         }
-    }
-
-    //// -------------- DOESN'T WORK! -----------------------
-    @Error(ViewRenderingException.class)
-    public HttpResponse onViewError() {
-        return HttpResponse.serverError();
     }
 
     /**
